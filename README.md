@@ -156,7 +156,7 @@ If you want to contribute to the development of this package, please fork the re
 
 ## License
 
-This package is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This package is licensed under the MIT License.
 
 ## Contact
 
@@ -164,3 +164,7 @@ For any questions or feedback, please contact:
 
 - **Danilo Oliveira**: [daniloworkdev@gmail.com](mailto:daniloworkdev@gmail.com)
 - **Website**: [daniloo.dev](http://www.daniloo.dev)
+
+---
+
+**Note:** The Package is currently under construction and may be updated further. As this is an early release, there may be bugs or incomplete features. We appreciate your understanding and feedback as we continue to improve the package.
