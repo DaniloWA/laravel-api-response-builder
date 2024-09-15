@@ -29,12 +29,12 @@ abstract class BaseResponse
     protected function wrapData($data): array
     {
         if (Config::get('responsebuilder.wrap_data', true)) {
-            return ['data' => $data];
+            return ['data' => is_array($data) ? $data : json_decode(json_encode($data), true)];
         }
 
-        return $data;
+        return is_array($data) ? $data : json_decode(json_encode($data), true);
     }
-
+    
     protected function getJsonOptions(): int
     {
         return Config::get('responsebuilder.json_options', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -53,11 +53,6 @@ abstract class BaseResponse
     protected function getLoggingLevel(): string
     {
         return Config::get('responsebuilder.logging_level', 'info');
-    }
-
-    protected function getCorsSettings(): array
-    {
-        return Config::get('responsebuilder.cors_settings', []);
     }
 
     protected function getDetailedErrors(): bool

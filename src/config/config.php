@@ -62,7 +62,7 @@ return [
     | key. This is useful if you want a consistent structure for all responses.
     |
     */
-    'wrap_data' => true,
+    'wrap_data' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -171,21 +171,4 @@ return [
     |
     */
     'log_response_time' => false,
-
-    /*
-    |--------------------------------------------------------------------------
-    | CORS Settings
-    |--------------------------------------------------------------------------
-    |
-    | Define CORS settings to control cross-origin resource sharing.
-    |
-    */
-    'cors_settings' => [
-        'enabled' => true,
-        'allowed_origins' => ['*'],
-        'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        'allowed_headers' => ['Content-Type', 'Authorization'],
-        'exposed_headers' => ['Authorization'],
-        'max_age' => 86400, // Time in seconds
-    ],
 ];
