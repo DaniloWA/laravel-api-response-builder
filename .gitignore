@@ -1,0 +1,55 @@
+# Laravel
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+Homestead.yaml
+Homestead.json
+.idea
+.phpunit.result.cache
+/.vscode
+/.idea
+/.DS_Store
+
+# NPM
+npm-debug.log
+yarn-error.log
+
+# Composer
+composer.lock
+composer.phar
+
+# IDEs and Editors
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Laravel-specific
+bootstrap/cache/*
+storage/app/*
+storage/framework/*
+storage/logs/*
+public/storage
+
+# Laravel 8 and later
+.env.local
+.env.*.local
+
+# Package-related
+/vendor/*
+/node_modules/*
+/composer.lock
+
+# Miscellaneous
+*.log
+*.tmp
+*.cache
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Local environment files
+*.local
