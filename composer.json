@@ -4,8 +4,7 @@
   "description": "A Laravel package designed to simplify the creation of structured and formatted API responses (JSON, XML) with custom status codes, messages, and data.",
   "type": "library",
   "license": "MIT",
-  "minimum-stability": "stable",
-  "prefer-stable": true,
+  "minimum-stability": "dev",
   "homepage": "https://github.com/DaniloWA/laravel-api-response-builder",
   "keywords": [
     "doliveira",
