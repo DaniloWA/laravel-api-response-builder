@@ -24,17 +24,16 @@ class LogResponse
             $level = 'info'; // Default level
         }
 
-        // Collect log data
+
         $logData = [
             'status' => $response->status(),
             'headers' => $response->headers->all(),
-            'content' => self::sanitizeContent($response->getContent()), // Sanitize content
+            'content' => self::sanitizeContent($response->getContent()),
         ];
 
-        // Format the log data
         $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
 
-        // Log the response if enabled
+
         if (Config::get('responsebuilder.log_responses', false)) {
             Log::$level($formattedLog);
         }
@@ -47,13 +46,12 @@ class LogResponse
      */
     public static function logRequest(): void
     {
-        if (!Config::get('responsebuilder.log_requests', false)) {
+        if (Config::get('responsebuilder.log_requests', false)) {
             return;
         }
 
         $request = Request::instance();
 
-        // Collect log data
         $logData = [
             'method' => $request->method(),
             'url' => $request->fullUrl(),
@@ -61,10 +59,8 @@ class LogResponse
             'body' => $request->all(),
         ];
 
-        // Format the log data
         $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
 
-        // Log the request
         Log::info('Request Data: ' . $formattedLog);
     }
 
@@ -76,22 +72,19 @@ class LogResponse
      */
     public static function logResponseTime(float $startTime): void
     {
-        if (!Config::get('responsebuilder.log_response_time', false)) {
+        if (Config::get('responsebuilder.log_response_time', false)) {
             return;
         }
 
         $endTime = microtime(true);
         $responseTime = $endTime - $startTime;
 
-        // Collect log data
         $logData = [
-            'response_time' => number_format($responseTime * 1000, 2) . ' ms', // Convert to milliseconds
+            'response_time' => number_format($responseTime * 1000, 2) . ' ms',
         ];
 
-        // Format the log data
         $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
 
-        // Log the response time
         Log::info('Response Time: ' . $formattedLog);
     }
 
@@ -104,8 +97,7 @@ class LogResponse
     private static function sanitizeContent(string $content): string
     {
         $decodedContent = json_decode($content, true);
-        
-        // Example: Remove sensitive information
+
         if (isset($decodedContent['data']['token'])) {
             $decodedContent['data']['token'] = '***REDACTED***';
         }

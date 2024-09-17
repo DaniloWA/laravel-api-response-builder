@@ -3,23 +3,35 @@
 namespace Doliveira\LaravelResponseBuilder\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class ResponseBuilderServiceProvider extends ServiceProvider
 {
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'responsebuilder');
-        
     }
 
     public function boot()
     {
-        // Publica arquivos de configuração
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('laravel-api-response-builder.php'),
+            __DIR__.'/../config/config.php' => config_path('laravel-api-response-builder.php'),
         ], 'laravel-api-response-config');
 
-        // Carregar traduções
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'responsebuilder');
+        $this->configureLogging();
+    }
+
+    protected function configureLogging()
+    {
+        $config = Config::get('responsebuilder');
+        $logFiles = $config['log_files'];
+
+        foreach ($logFiles as $level => $path) {
+            $this->app['config']->set("logging.channels.{$level}_log", [
+                'driver' => 'single',
+                'path' => $path,
+                'level' => $level,
+            ]);
+        }
     }
 }

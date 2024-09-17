@@ -1,170 +1,142 @@
 # Laravel API Response Builder
 
-**Laravel API Response Builder** is a Laravel package designed to simplify the creation of structured and formatted API responses (JSON, XML) with customizable status codes, messages, and data. This package provides a flexible way to handle API responses, including error handling, logging, and various configuration options.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/lwwcas/laravel-countries/master/assets/map.jpg" alt="Laravel API Response Builder"/>
+</p>
 
-## Features
+<p align="center">
+  <img src="https://img.shields.io/packagist/v/doliveira/laravel-api-response-builder" alt="Latest Version" />
+  <img src="https://img.shields.io/packagist/dt/doliveira/laravel-api-response-builder" alt="Total Downloads" />
 
-- **Structured Responses**: Define custom response structures for consistency.
-- **Format Options**: Choose between JSON and XML response formats.
-- **Logging**: Log requests and responses for debugging and auditing.
-- **Compression**: Optionally compress responses to reduce payload size.
-- **Error Handling**: Include detailed error messages for debugging.
+</p>
 
-## Installation
+<p align="center">
+  Welcome to the <strong>Laravel API Response Builder</strong>! This package simplifies the creation of structured and formatted API responses in both JSON and XML formats. It provides customizable status codes, messages, and data handling, making it a versatile tool for managing API responses, including error handling, logging, and extensive configuration options.
+</p>
 
-To install the package, run the following command:
+## 📚 Index
 
-```bash
-composer require doliveira/laravel-api-response-builder
-```
+- [Installation](#installation)
+- [Technologies](#technologies)
+- [Concepts & Patterns](#concepts--patterns)
+- [Prerequisites](#prerequisites)
+- [Documentation](#documentation)
+- [Links](#links)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## Configuration
+## 🚀 Features
 
-After installing the package, publish the configuration file using the following command:
+- **Structured Responses:** Create consistent JSON and XML responses effortlessly.
+- **Customizable Status Codes & Messages:** Adapt responses to fit your requirements.
+- **Error Handling & Logging:** Detailed logging for both responses and requests.
+- **Flexible Configuration:** Adjust settings for data wrapping, response languages, and more.
 
-```bash
-php artisan vendor:publish --provider="Doliveira\LaravelResponseBuilder\Providers\ResponseBuilderServiceProvider"
-```
+## ⚙️ Prerequisites
 
-This will create a `config/laravel-api-response-builder.php` file where you can customize the package settings.
+Ensure your project meets the following requirements before using this package:
 
-## Configuration Options
+- **Laravel Framework:** Version 8.12 or higher.
+- **PHP:** Version 7.3 or higher.
+- **Composer:** PHP dependency manager.
 
-Here's a brief overview of the available configuration options:
+## 📦 Installation
 
-- **`default_format`**: The default format for responses (`'json'` or `'xml'`).
-- **`json_options`**: Options for JSON encoding (e.g., `JSON_UNESCAPED_SLASHES`).
-- **`xml_root_element`**: The default root element for XML responses.
-- **`default_status_code`**: The default HTTP status code for responses.
-- **`detailed_errors`**: Whether to include detailed error messages for debugging.
-- **`wrap_data`**: Whether to wrap response data in an additional `'data'` key.
-- **`default_locale`**: The default locale for custom messages.
-- **`default_response_language`**: The default language for responses (`'en'` or `'pt'`).
-- **`compress_responses`**: Whether to compress responses.
-- **`log_responses`**: Whether to log responses.
-- **`logging_level`**: The level of detail for logging responses.
-- **`api_key_header`**: The name of the header used for API keys.
-- **`custom_response_structure`**: Define a custom structure for responses.
-- **`debug_mode`**: Enable or disable debug mode.
-- **`log_requests`**: Whether to log requests.
-- **`log_response_time`**: Whether to log response times.
+To integrate the Laravel API Response Builder into your Laravel project, follow these steps:
 
-## Usage
+1. **Install via Composer:**
 
-### JSON Responses
+   Run the following command in your terminal:
 
-#### Success Response
+   ```bash
+   composer require doliveira/laravel-api-response-builder
+   ```
 
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+2. **Publish the Configuration:**
 
-return JsonResponse::success($data, 'Operation successful.');
-```
+   After installation, publish the configuration file:
 
-#### Error Response
+   ```bash
+   php artisan vendor:publish --provider="Doliveira\LaravelResponseBuilder\Providers\ResponseBuilderServiceProvider"
+   ```
 
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+   This will create a configuration file at `config/responsebuilder.php` where you can customize the package settings.
 
-return JsonResponse::error(400, 'Bad request.', $data);
-```
+3. **Configuration:**
 
-### XML Responses
+   Open the `config/responsebuilder.php` file and adjust the settings as needed for your project. Configure options such as data wrappers, API key headers, and logging preferences.
 
-To create XML responses, use the `XmlResponse` class:
+## 🧰 Technologies
 
-```php
-use Doliveira\LaravelResponseBuilder\XmlResponse;
+The **Laravel API Response Builder** utilizes the following technologies:
 
-$response = new XmlResponse($statusCode, $message, $data);
-return $response->build();
-```
+- **Laravel Framework:** A PHP framework for web applications.
+- **PHP:** The server-side scripting language.
+- **JSON:** Data format for API responses.
+- **XML:** Data format for API responses (currently under development).
+- **Log:** Laravel's logging facilities for recording response details.
 
-## Error Handling
-
-The package allows you to include detailed error messages for debugging. By default, this is disabled in production environments:
-
-```php
-'logging_level' => 'info',
-'detailed_errors' => false,
-```
-
-You can enable detailed error messages for debugging purposes by setting `'detailed_errors'` to `true` in the configuration.
-
-## Examples
-
-### Success JSON Response
-
-```json
-{
-    "status": 200,
-    "message": "Operation successful.",
-    "data": {
-        "id": 1,
-        "name": "Example"
-    }
-}
-```
-
-### Error JSON Response
-
-```json
-{
-    "status": 400,
-    "message": "Bad request.",
-    "data": null
-}
-```
-
-### Success XML Response
-
-```xml
-<response>
-    <status>200</status>
-    <message>Operation successful.</message>
-    <data>
-        <id>1</id>
-        <name>Example</name>
-    </data>
-</response>
-```
-
-### Error XML Response
-
-```xml
-<response>
-    <status>400</status>
-    <message>Bad request.</message>
-    <data/>
-</response>
-```
-
-## Logging
-
-The package can log requests, responses, and response times. Configure logging settings in `config/laravel-api-response-builder.php`:
-
-```php
-'log_responses' => true,
-'log_requests' => true,
-'log_response_time' => true,
-'logging_level' => 'info',
-```
-
-## Contributing
-
-If you want to contribute to the development of this package, please fork the repository and submit a pull request.
-
-## License
-
-This package is licensed under the MIT License.
-
-## Contact
-
-For any questions or feedback, please contact:
-
-- **Danilo Oliveira**: [daniloworkdev@gmail.com](mailto:daniloworkdev@gmail.com)
-- **Website**: [daniloo.dev](http://www.daniloo.dev)
+Claro, aqui está uma versão aprimorada para a seção "Concepts & Patterns", baseada no código e na funcionalidade descrita:
 
 ---
 
-**Note:** The Package is currently under construction and may be updated further. As this is an early release, there may be bugs or incomplete features. We appreciate your understanding and feedback as we continue to improve the package.
+## 📚 Concepts & Patterns
+
+The **Laravel API Response Builder** package integrates several advanced concepts and patterns designed to enhance API response management:
+
+- **Response Wrapping:** This pattern wraps your response data in a unified format, ensuring consistency across all API responses. It includes customizable data wrappers that can be adjusted through the `config/responsebuilder.php` configuration file. This approach simplifies response handling and provides a clear structure for both successful and error responses.
+
+- **Detailed Logging:** The package offers comprehensive logging capabilities for both responses and requests. Using Laravel’s built-in logging facilities, it captures key details such as response status, headers, and content. This feature supports various logging levels and allows you to specify log file paths, enabling efficient debugging and monitoring of your API interactions.
+
+- **Flexible Configuration Management:** Leveraging Laravel’s configuration system, the package provides extensive options for customizing the response structure. You can easily configure data wrappers, API key headers, default status codes, and response languages. This flexibility allows you to tailor the package’s behavior to fit the specific needs of your project.
+
+- **Standardized Error Handling:** The package standardizes the way error messages and statuses are generated. It provides a consistent approach to error responses, allowing for easier troubleshooting and improved user experience. Configuration options are available to adjust error message formats and response codes, ensuring that error handling aligns with your application’s requirements.
+
+## 🌐 Documentation
+
+### [JSON Response](#json-response)
+
+- **Auto** - [Description](#) | [Examples](#)
+- **Success** - [Description](#) | [Examples](#)
+- **Error** - [Description](#) | [Examples](#)
+
+### [Config](#config)
+
+- **Custom Response Structure** - [Details](#custom-response-structure)
+  - [Data Wrapper](#data-wrapper)
+  - [API Key Header](#api-key-header)
+  - [Response Language](#response-language)
+  - [Default Status Code](#default-status-code)
+  - [JSON Options](#json-options)
+- **Logs** - [Details](#logs)
+  - [Log Responses](#log-responses)
+  - [Request Logging](#request-logging)
+  - [Response Time Logging](#response-time-logging)
+  - [Logging Level](#logging-level)
+  - [Log Files Path](#log-files-path)
+
+## 🔗 Links
+
+- [Official Documentation](#documentation)
+- [GitHub Repository](https://github.com/doliveira/laravel-api-response-builder)
+- [Support & Issues](https://github.com/doliveira/laravel-api-response-builder/issues)
+
+## 🤝 Contributing
+
+To contribute to the development of this package, please fork the repository and submit a pull request.
+
+## 📝 License
+
+This package is licensed under the MIT License.
+
+## 📬 Contact
+
+For any questions or feedback, please reach out to:
+
+- **Danilo Oliveira:** [daniloworkdev@gmail.com](mailto:daniloworkdev@gmail.com)
+- **Website:** [daniloo.dev](http://www.daniloo.dev)
+
+---
+
+**Note:** This package is currently under development, and XML support is still in progress. As an early release, there might be bugs or incomplete features. We appreciate your patience and feedback.
