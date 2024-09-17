@@ -15,15 +15,11 @@ class LogResponse
      * @param IlluminateJsonResponse $response
      * @return void
      */
-    public static function log(IlluminateJsonResponse $response): void
+    public static function logResponse(IlluminateJsonResponse $response): void
     {
-        $validLevels = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'];
-        $level = Config::get('responsebuilder.logging_level', 'info');
-
-        if (!in_array($level, $validLevels, true)) {
-            $level = 'info'; // Default level
+        if (Config::get('responsebuilder.log_responses', false) === false) {
+            return;
         }
-
 
         $logData = [
             'status' => $response->status(),
@@ -31,12 +27,7 @@ class LogResponse
             'content' => self::sanitizeContent($response->getContent()),
         ];
 
-        $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
-
-
-        if (Config::get('responsebuilder.log_responses', false)) {
-            Log::$level($formattedLog);
-        }
+        self::logFormattedData($logData);
     }
 
     /**
@@ -46,7 +37,7 @@ class LogResponse
      */
     public static function logRequest(): void
     {
-        if (Config::get('responsebuilder.log_requests', false)) {
+        if (Config::get('responsebuilder.log_requests', false) === false) {
             return;
         }
 
@@ -59,9 +50,7 @@ class LogResponse
             'body' => $request->all(),
         ];
 
-        $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
-
-        Log::info('Request Data: ' . $formattedLog);
+        self::logFormattedData($logData, 'Request Data: ');
     }
 
     /**
@@ -72,7 +61,7 @@ class LogResponse
      */
     public static function logResponseTime(float $startTime): void
     {
-        if (Config::get('responsebuilder.log_response_time', false)) {
+        if (Config::get('responsebuilder.log_response_time', false) === false) {
             return;
         }
 
@@ -83,17 +72,45 @@ class LogResponse
             'response_time' => number_format($responseTime * 1000, 2) . ' ms',
         ];
 
-        $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
-
-        Log::info('Response Time: ' . $formattedLog);
+        self::logFormattedData($logData, 'Response Time: ');
     }
 
     /**
-     * Sanitize response content to remove sensitive information.
+     * Log formatted data.
      *
-     * @param string $content
-     * @return string
+     * @param array $logData
+     * @param string $prefix
+     * @return void
      */
+    private static function logFormattedData(array $logData, string $prefix = ''): void
+    {
+        $level = self::getLogLevel();
+        $channel = self::getLogChannel();
+
+        $formattedLog = json_encode($logData, JSON_PRETTY_PRINT);
+
+        Log::channel($channel)->log($level, $prefix . $formattedLog);
+    }
+
+    private static function getLogChannel(): string
+    {
+        $level = self::getLogLevel();
+
+        return "responsebuilder_{$level}";
+    }
+
+    private static function getLogLevel(): string
+    {
+        $validLevels = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'];
+        $level = Config::get('responsebuilder.logging_level', 'info');
+
+        if (!in_array($level, $validLevels, true)) {
+            $level = 'info'; // Default level
+        }
+
+        return $level;
+    }
+
     private static function sanitizeContent(string $content): string
     {
         $decodedContent = json_decode($content, true);

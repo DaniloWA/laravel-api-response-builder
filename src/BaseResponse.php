@@ -73,9 +73,19 @@ abstract class BaseResponse
         return Config::get('responsebuilder.json_options', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
-    protected function getLoggingSetting(): bool
+    protected function getLoggingResponse(): bool
     {
         return Config::get('responsebuilder.log_responses', false);
+    }
+
+    protected function getLoggingRequest(): bool
+    {
+        return Config::get('responsebuilder.log_requests', false);
+    }
+
+    protected function getLoggingResponseTime(): bool
+    {
+        return Config::get('responsebuilder.log_response_time', false);
     }
 
     protected function getLoggingLevel(): string

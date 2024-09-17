@@ -3,7 +3,6 @@
 namespace Doliveira\LaravelResponseBuilder;
 
 use Illuminate\Http\JsonResponse as IlluminateJsonResponse;
-use Illuminate\Support\Facades\Lang;
 
 /**
  * Class JsonResponse
@@ -148,7 +147,6 @@ class JsonResponse extends BaseResponse
     public function buildResponse(): IlluminateJsonResponse
     {
         LogResponse::logRequest();
-
         $startTime = microtime(true);
 
         $structure = $this->getResponseStructure();
@@ -162,10 +160,7 @@ class JsonResponse extends BaseResponse
         $jsonResponse = json_encode($response, $jsonOptions);
         $response = response()->json($response, $this->statusCode);
 
-        if ($this->getLoggingSetting()) {
-            LogResponse::log(new IlluminateJsonResponse($jsonResponse, $this->statusCode));
-        }
-
+        LogResponse::logResponse(new IlluminateJsonResponse($jsonResponse, $this->statusCode));
         LogResponse::logResponseTime($startTime);
 
         return $response;
