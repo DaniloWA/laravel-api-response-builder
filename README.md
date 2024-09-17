@@ -1,8 +1,8 @@
 # Laravel API Response Builder
 
-<p align="center">
+<!-- <p align="center">
   <img src="https://raw.githubusercontent.com/lwwcas/laravel-countries/master/assets/map.jpg" alt="Laravel API Response Builder"/>
-</p>
+</p> -->
 
 <p align="center">
   <img src="https://img.shields.io/packagist/v/doliveira/laravel-api-response-builder" alt="Latest Version" />
