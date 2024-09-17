@@ -14,9 +14,11 @@ class ResponseBuilderServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('laravel-api-response-builder.php'),
-        ], 'laravel-api-response-config');
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/config.php' => config_path('responseBuilder.php'),
+            ], 'config');
+        }
 
         $this->configureLogging();
     }
@@ -27,7 +29,11 @@ class ResponseBuilderServiceProvider extends ServiceProvider
         $logFiles = $config['log_files'];
 
         foreach ($logFiles as $level => $path) {
-            $this->app['config']->set("logging.channels.{$level}_log", [
+            if (!in_array($level, ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'])) {
+                throw new \InvalidArgumentException("Invalid logging level: {$level}");
+            }
+
+            $this->app['config']->set("logging.channels.responsebuilder_{$level}", [
                 'driver' => 'single',
                 'path' => $path,
                 'level' => $level,
