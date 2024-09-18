@@ -52,20 +52,26 @@ abstract class BaseResponse
         */
     protected function getMessageFromStatusCode($statusCode): string
     {
-        switch ($statusCode) {
-            case 200:
-                return Lang::get('responsebuilder.success');
-            case 400:
-                return Lang::get('responsebuilder.bad_request');
-            case 401:
-                return Lang::get('responsebuilder.unauthorized');
-            case 404:
-                return Lang::get('responsebuilder.not_found');
-            case 500:
-                return Lang::get('responsebuilder.server_error');
-            default:
-                return Lang::get('responsebuilder.server_error');
-        }
+        $messages = [
+            200 => Lang::get('responsebuilder.success'),
+            201 => Lang::get('responsebuilder.created'),
+            202 => Lang::get('responsebuilder.accepted'),
+            204 => Lang::get('responsebuilder.no_content'),
+            400 => Lang::get('responsebuilder.bad_request'),
+            401 => Lang::get('responsebuilder.unauthorized'),
+            403 => Lang::get('responsebuilder.forbidden'),
+            404 => Lang::get('responsebuilder.not_found'),
+            405 => Lang::get('responsebuilder.method_not_allowed'),
+            409 => Lang::get('responsebuilder.conflict'),
+            422 => Lang::get('responsebuilder.unprocessable_entity'),
+            429 => Lang::get('responsebuilder.too_many_requests'),
+            500 => Lang::get('responsebuilder.server_error'),
+            502 => Lang::get('responsebuilder.bad_gateway'),
+            503 => Lang::get('responsebuilder.service_unavailable'),
+            504 => Lang::get('responsebuilder.gateway_timeout'),
+        ];
+    
+        return $messages[$statusCode] ?? Lang::get('responsebuilder.unknown_error');
     }
 
     protected function getJsonOptions(): int
