@@ -22,7 +22,7 @@ class ResponseBuilderServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/responsebuilder'),
+                __DIR__.'/../resources/lang' => resource_path('lang/responsebuilder'),
             ], 'lang');
         }
 

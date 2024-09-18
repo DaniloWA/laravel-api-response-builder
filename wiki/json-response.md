@@ -43,7 +43,7 @@ Generates a successful JSON response with a customizable message and data.
 
 ### 🛠️ **How to use** {#how-to-use-success}
 
-![how_to_use_sucess](/wiki/imgs/jsonResponse/how_to_use_sucess.png)
+![how_to_use_success](/wiki/imgs/jsonResponse/how_to_use_success.png)
 
 <details>
 <summary>Click to view code</summary>
@@ -61,7 +61,7 @@ return JsonResponse::success($data, 'Operation successful.');
 **Example 1:**
 Generates a success response with user details.
 
-![Example 1](/wiki/imgs/jsonResponse/example_1_sucess.png)
+![Example 1](/wiki/imgs/jsonResponse/example_1_success.png)
 
 <details>
 <summary>Click to view code</summary>
@@ -74,14 +74,10 @@ return JsonResponse::success($userData, 'User details retrieved successfully.');
 
 </details>
 
-<br>
-
 **Example 2:**
 Generates a success response with product details and a custom status code.
 
-</details>
-
-![Example 2](/wiki/imgs/jsonResponse/example_2_sucess.png)
+![Example 2](/wiki/imgs/jsonResponse/example_2_success.png)
 
 <details>
 <summary>Click to view code</summary>
@@ -91,6 +87,8 @@ use Doliveira\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::success($productData, 'Product details retrieved successfully.', true, 'product');
 ```
+
+</details>
 
 ---
 
@@ -126,6 +124,8 @@ return JsonResponse::error(400, 'Bad request.', $data);
 **Example 1:**
 Generates an error response for a resource not found.
 
+![Example 1](/wiki/imgs/jsonResponse/example_1_error.png)
+
 <details>
 <summary>Click to view code</summary>
 
@@ -136,8 +136,6 @@ return JsonResponse::error(404, 'Resource not found.');
 ```
 
 </details>
-
-![Example 1](path/to/example1-image.png)
 
 ---
 
@@ -174,6 +172,8 @@ return JsonResponse::successWithMeta($data, $meta, 'Operation successful.');
 **Example 1:**
 Generates a success response with user details and metadata about the request.
 
+![Example 1](/wiki/imgs/jsonResponse/example_1_success_with_meta.png)
+
 <details>
 <summary>Click to view code</summary>
 
@@ -184,8 +184,6 @@ return JsonResponse::successWithMeta($userData, ['request_time' => now()], 'User
 ```
 
 </details>
-
-![Example 1](path/to/example1-image.png)
 
 ---
 
@@ -222,6 +220,8 @@ return JsonResponse::errorWithSuggestions(400, 'Bad request.', $data, ['Check re
 **Example 1:**
 Generates an error response with suggestions to check request parameters.
 
+![Example 1](/wiki/imgs/jsonResponse/example_1_error_with_suggestions.png)
+
 <details>
 <summary>Click to view code</summary>
 
@@ -232,8 +232,6 @@ return JsonResponse::errorWithSuggestions(400, 'Bad request.', null, ['Ensure al
 ```
 
 </details>
-
-![Example 1](path/to/example1-image.png)
 
 ---
 
@@ -270,6 +268,8 @@ return JsonResponse::successWithPagination($data, ['page' => 1, 'total_pages' =>
 **Example 1:**
 Generates a success response with user list and pagination information.
 
+![Example 1](/wiki/imgs/jsonResponse/example_1_success_with_pagination.png)
+
 <details>
 <summary>Click to view code</summary>
 
@@ -280,8 +280,6 @@ return JsonResponse::successWithPagination($userData, ['page' => 1, 'total_pages
 ```
 
 </details>
-
-![Example 1](path/to/example1-image.png)
 
 ---
 
@@ -298,11 +296,11 @@ Generates a successful JSON response with trace information for debugging purpos
 - `string|null $message` – Optional success message (default: 'success').
 - `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
 - `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-- `int $statusCode` – HTTP status code (default: 200).
+- `int $statusCode` – HTTP status
 
-### 🛠️ \*\*How
+code (default: 200).
 
-to use\*\* {#how-to-use-successwithtrace}
+### 🛠️ **How to use** {#how-to-use-successwithtrace}
 
 <details>
 <summary>Click to view code</summary>
@@ -310,7 +308,7 @@ to use\*\* {#how-to-use-successwithtrace}
 ```php
 use Doliveira\LaravelResponseBuilder\JsonResponse;
 
-return JsonResponse::successWithTrace($data, debug_backtrace(), 'Operation successful.');
+return JsonResponse::successWithTrace($data, ['trace' => debug_backtrace()], 'Operation successful.');
 ```
 
 </details>
@@ -318,7 +316,9 @@ return JsonResponse::successWithTrace($data, debug_backtrace(), 'Operation succe
 ### **Examples** {#examples-successwithtrace}
 
 **Example 1:**
-Generates a success response with trace information for a user creation operation.
+Generates a success response with trace information for debugging.
+
+![Example 1](/wiki/imgs/jsonResponse/example_1_success_with_trace.png)
 
 <details>
 <summary>Click to view code</summary>
@@ -326,9 +326,19 @@ Generates a success response with trace information for a user creation operatio
 ```php
 use Doliveira\LaravelResponseBuilder\JsonResponse;
 
-return JsonResponse::successWithTrace($userData, debug_backtrace(), 'User created successfully.');
+return JsonResponse::successWithTrace($userData, ['trace' => debug_backtrace()], 'User details retrieved successfully.');
 ```
 
 </details>
 
-![Example 1](path/to/example1-image.png)
+---
+
+## **Links**
+
+- [JsonResponse Class Documentation](#overview)
+- [Success](#success)
+- [Error](#error)
+- [SuccessWithMeta](#successwithmeta)
+- [ErrorWithSuggestions](#errorwithsuggestions)
+- [SuccessWithPagination](#successwithpagination)
+- [SuccessWithTrace](#successwithtrace)
