@@ -53,25 +53,25 @@ abstract class BaseResponse
     protected function getMessageFromStatusCode($statusCode): string
     {
         $messages = [
-            200 => Lang::get('responsebuilder.success'),
-            201 => Lang::get('responsebuilder.created'),
-            202 => Lang::get('responsebuilder.accepted'),
-            204 => Lang::get('responsebuilder.no_content'),
-            400 => Lang::get('responsebuilder.bad_request'),
-            401 => Lang::get('responsebuilder.unauthorized'),
-            403 => Lang::get('responsebuilder.forbidden'),
-            404 => Lang::get('responsebuilder.not_found'),
-            405 => Lang::get('responsebuilder.method_not_allowed'),
-            409 => Lang::get('responsebuilder.conflict'),
-            422 => Lang::get('responsebuilder.unprocessable_entity'),
-            429 => Lang::get('responsebuilder.too_many_requests'),
-            500 => Lang::get('responsebuilder.server_error'),
-            502 => Lang::get('responsebuilder.bad_gateway'),
-            503 => Lang::get('responsebuilder.service_unavailable'),
-            504 => Lang::get('responsebuilder.gateway_timeout'),
+            200 => Lang::get('responsebuilder::messages.success'),
+            201 => Lang::get('responsebuilder::messages.created'),
+            202 => Lang::get('responsebuilder::messages.accepted'),
+            204 => Lang::get('responsebuilder::messages.no_content'),
+            400 => Lang::get('responsebuilder::messages.bad_request'),
+            401 => Lang::get('responsebuilder::messages.unauthorized'),
+            403 => Lang::get('responsebuilder::messages.forbidden'),
+            404 => Lang::get('responsebuilder::messages.not_found'),
+            405 => Lang::get('responsebuilder::messages.method_not_allowed'),
+            409 => Lang::get('responsebuilder::messages.conflict'),
+            422 => Lang::get('responsebuilder::messages.unprocessable_entity'),
+            429 => Lang::get('responsebuilder::messages.too_many_requests'),
+            500 => Lang::get('responsebuilder::messages.server_error'),
+            502 => Lang::get('responsebuilder::messages.bad_gateway'),
+            503 => Lang::get('responsebuilder::messages.service_unavailable'),
+            504 => Lang::get('responsebuilder::messages.gateway_timeout'),
         ];
     
-        return $messages[$statusCode] ?? Lang::get('responsebuilder.unknown_error');
+        return $messages[$statusCode] ?? Lang::get('responsebuilder::messages.unknown_error');
     }
 
     protected function getJsonOptions(): int
