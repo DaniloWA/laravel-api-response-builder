@@ -9,6 +9,9 @@
 
 ## 📚 Index
 
+<a href="#-how-to-use-resume" style="font-size: 18px; font-weight: bold;">🔍 How to Use</a>  
+<span style="font-size: 15px; color: #666; ">Overview of the most commonly used methods and their brief descriptions.</span>
+
 - [Features](#-features)
 - [Requirements](#-requirements)
 - [Installation](#-installation)
@@ -107,6 +110,358 @@ The **Laravel API Response Builder** package integrates several advanced concept
 - **Flexible Configuration Management:** Leveraging Laravel’s configuration system, the package provides extensive options for customizing the response structure. You can easily configure data wrappers, API key headers, default status codes, and response languages. This flexibility allows you to tailor the package’s behavior to fit the specific needs of your project.
 
 - **Standardized Error Handling:** The package standardizes the way error messages and statuses are generated. It provides a consistent approach to error responses, allowing for easier troubleshooting and improved user experience. Configuration options are available to adjust error message formats and response codes, ensuring that error handling aligns with your application’s requirements.
+
+## 📝 How to Use Resume
+
+In this section, we highlight the two most frequently used methods (**Success** and **Error** ) in the package for quick reference. For a comprehensive overview and detailed explanations of all available methods, including additional functionalities and usage scenarios, please consult the full documentation.
+
+- **Success** - Returns a standard success response with optional data and a default message.
+- **SuccessWithMeta** - Returns a success response with data and additional metadata.
+- **SuccessWithHeaders** - Returns a success response with data and custom headers included.
+- **SuccessWithPagination** - Returns a success response with data and pagination details.
+- **Error** - Returns an error response with a specified status code and message.
+- **ErrorWithTrace** - Returns an error response with an additional trace for debugging purposes.
+- **ErrorWithSuggestions** - Returns an error response with suggestions for resolving the issue.
+
+### Customizing Response Settings
+
+You can customize the response structure and behavior in the package configuration file. Here are some key options:
+
+- **Custom Response Structure:** Modify the default response keys (`status`, `message`, `data`) to fit your API needs.
+
+  ```php
+  /*
+  |--------------------------------------------------------------------------
+  | Custom Response Structure
+  |--------------------------------------------------------------------------
+  | Define a custom structure for responses. The example below includes
+  | 'status', 'message', and 'data', but you can modify these as needed.
+  |
+  */
+  'custom_response_structure' => [
+      'status' => 'status',
+      'message' => 'message',
+      'data' => 'data',
+  ],
+  ```
+
+- **Response Data Wrapper:** Enable or disable wrapping the response data in an additional `data` key. This helps maintain a consistent response structure.
+
+  ```php
+  /*
+  |--------------------------------------------------------------------------
+  | Response Data Wrapper
+  |--------------------------------------------------------------------------
+  | If enabled, the response data will be wrapped in an additional 'data'
+  | key. This is useful if you want a consistent structure for all responses.
+  |
+  */
+  'wrap_data' => true,
+  ```
+
+- **Response Data Wrapper Key:** Customize the key used to wrap the response data. The default key is `data`, but you can change it according to your API structure.
+
+  ```php
+  /*
+  |--------------------------------------------------------------------------
+  | Response Data Wrapper Key
+  |--------------------------------------------------------------------------
+  | This value sets the key used to wrap the response data. By default, it is
+  | 'data', but you can customize it according to your API structure.
+  |
+  */
+  'wrap_data_key' => 'items',
+  ```
+
+These configuration options allow you to tailor the response structure to fit the needs of your application and ensure consistency across your API responses.
+
+---
+
+### success()
+
+**Description:**
+
+The `success()` method returns a JSON response with a successful status code (200) and a success message. This is useful for standardizing success responses in your API.
+
+**Parameters:**
+
+- **`mixed $data`**:
+
+  - **Optional**
+  - **Type**: `array` or `object`
+  - **Description**: The data to include in the response. This can be any data structure that you want to return to the client.
+  - **Example**: `['user' => $user]` or `new User($userId)`.
+
+- **`string|null $message`**:
+
+  - **Optional**
+  - **Type**: `string` or `null`
+  - **Description**: The success message to include in the response. If not provided, a default message will be used. This parameter is optional.
+  - **Example**: `'User fetched successfully.'` or `null`.
+
+- **`bool|null $wrap`**:
+
+  - **Optional**
+  - **Type**: `bool` or `null`
+  - **Description**: Determines whether to wrap the data in a wrapper object. If `true`, the data will be wrapped according to the configuration. If `false`, no wrapping will be applied. If `null`, the wrapping behavior will follow the default configuration setting. This parameter is optional.
+  - **Example**: `true` | `false` or `null` .
+
+- **`string|null $wrapKey`**:
+
+  - **Optional**
+  - **Type**: `string` or `null`
+  - **Description**: The key for wrapping the data. If specified, the data will be wrapped under this key. If not provided, the default key from the configuration will be used. This parameter is optional.
+  - **Example**: `'items'` or `null`.
+
+- **`int $statusCode`**:
+  - **Optional**
+  - **Type**: `int`
+  - **Description**: The HTTP status code for the response. Default is `200`, but can be changed if needed.
+  - **Example**: `200` (for a successful request).
+
+**Returns:**
+
+- **`IlluminateJsonResponse`**: A JSON response object with the provided data and message.
+
+**Usage Examples:**
+
+0. **Default Success Response:**
+
+   ```php
+   $response = JsonResponse::success();
+   ```
+
+   - **Description**: Returns a JSON response with the user data and a default success message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "success",
+       "message": "Operation completed successfully.",
+       "data": null
+     }
+     ```
+
+1. **Basic Success Response:**
+
+   ```php
+   $response = JsonResponse::success(['user' => $user]);
+   ```
+
+   - **Description**: Returns a JSON response with the user data and a default success message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "success",
+       "message": "Operation successful.",
+       "data": {
+         "user": {
+           "id": 1,
+           "name": "John Doe",
+           "email": "john.doe@example.com"
+         }
+       }
+     }
+     ```
+
+2. **Success Response with Custom Message:**
+
+   ```php
+   $response = JsonResponse::success(['user' => $user], 'User fetched successfully.');
+   ```
+
+   - **Description**: Returns a JSON response with the user data and a custom success message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "success",
+       "message": "User fetched successfully.",
+       "data": {
+         "user": {
+           "id": 1,
+           "name": "John Doe",
+           "email": "john.doe@example.com"
+         }
+       }
+     }
+     ```
+
+3. **Success Response with Wrapping:**
+   ```php
+   $response = JsonResponse::success(['user' => $user], 'User fetched successfully.', true);
+   ```
+   - **Description**: Returns a JSON response with the user data wrapped under the key `'items'` by default and a custom success message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "success",
+       "message": "User fetched successfully.",
+       "data": {
+         "items": {
+           "user": {
+             "id": 1,
+             "name": "John Doe",
+             "email": "john.doe@example.com"
+           }
+         }
+       }
+     }
+     ```
+4. **Success Response with Custom Wrap key:**
+   ```php
+   $response = JsonResponse::success(['user' => $user], 'User fetched successfully.', true, 'customWrap');
+   ```
+   - **Description**: Returns a JSON response with the user data wrapped under the custom key `'customWrap'` and a custom success message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "success",
+       "message": "User fetched successfully.",
+       "data": {
+         "customWrap": {
+           "user": {
+             "id": 1,
+             "name": "John Doe",
+             "email": "john.doe@example.com"
+           }
+         }
+       }
+     }
+     ```
+
+---
+
+### `error()`
+
+**Description:**
+
+The `error()` method returns a JSON response with an error status code and an error message. This is useful for standardizing error responses in your API.
+
+**Parameters:**
+
+- **`int $statusCode`**:
+
+  - **Required**
+  - **Type**: `int`
+  - **Description**: The HTTP status code to indicate the type of error (e.g., 400 for Bad Request, 404 for Not Found, 500 for Internal Server Error).
+  - **Example**: `404`.
+
+- **`string|null $message`**:
+
+  - **Optional**
+  - **Type**: `string` or `null`
+  - **Description**: The error message to include in the response. If not provided, a default error message will be used. This parameter is optional.
+  - **Example**: `'Resource not found.'` or `null`.
+
+- **`mixed $data`**:
+
+  - **Optional**
+  - **Type**: `array` or `object` or `null`
+  - **Description**: The data to include in the response. This can be used to provide additional information about the error (e.g., validation errors). If not provided, no additional data will be included. This parameter is optional.
+  - **Example**: `['field' => 'username', 'error' => 'Username is required.']` or `null`.
+
+- **`bool|null $wrap`**:
+
+  - **Optional**
+  - **Type**: `bool` or `null`
+  - **Description**: Determines whether to wrap the error data in a wrapper object. If `true`, the data will be wrapped according to the configuration. If `false`, no wrapping will be applied. If `null`, the wrapping behavior will follow the default configuration setting. This parameter is optional.
+  - **Example**: `true` | `false` or `null`.
+
+- **`string|null $wrapKey`**:
+
+  - **Optional**
+  - **Type**: `string` or `null`
+  - **Description**: The key for wrapping the error data. If specified, the data will be wrapped under this key. If not provided, the default key from the configuration will be used. This parameter is optional.
+  - **Example**: `'error'` or `null`.
+
+**Returns:**
+
+- **`IlluminateJsonResponse`**: A JSON response object with the provided status code, message, and data.
+
+**Usage Examples:**
+
+0. **Default Error Response**
+
+   ```php
+   $response = JsonResponse::error(404);
+   ```
+
+   - **Description**: Returns a JSON response with a `404` status code and a default error message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "error",
+       "message": "The requested resource could not be found.",
+       "data": null
+     }
+     ```
+
+1. **Basic Error Response:**
+
+   ```php
+   $response = JsonResponse::error(404, 'Resource not found.');
+   ```
+
+   - **Description**: Returns a JSON response with a `404` status code and a default error message.
+   - **Example Output:**
+     ```json
+     {
+       "status": "error",
+       "message": "Resource not found.",
+       "data": null
+     }
+     ```
+
+2. **Error Response with Custom Message and Data:**
+
+   ```php
+   $response = JsonResponse::error(400, 'Bad request', ['field' => 'username', 'error' => 'Username is required.']);
+   ```
+
+   - **Description**: Returns a JSON response with a `400` status code, a custom error message, and additional data describing the validation error.
+   - **Example Output:**
+     ```json
+     {
+       "status": "error",
+       "message": "Bad request",
+       "data": {
+         "field": "username",
+         "error": "Username is required."
+       }
+     }
+     ```
+
+3. **Error Response with Wrapping:**
+   ```php
+   $response = JsonResponse::error(500, 'Internal server error', null, true);
+   ```
+   - **Description**: Returns a JSON response with a `500` status code and the error wrapped under the key `'items'` by default.
+   - **Example Output:**
+     ```json
+     {
+       "status": "error",
+       "message": "Internal server error",
+       "data": {
+         "items": null
+       }
+     }
+     ```
+4. **Error Response with custom Wrap key:**
+   ```php
+   $response = JsonResponse::error(500, 'Internal server error', null, true, 'error');
+   ```
+   - **Description**: Returns a JSON response with a `500` status code and the error wrapped under the custom key `'error'`.
+   - **Example Output:**
+     ```json
+     {
+       "status": "error",
+       "message": "Internal server error",
+       "data": {
+         "error": null
+       }
+     }
+     ```
+
+---
 
 ## 🌐 Documentation
 

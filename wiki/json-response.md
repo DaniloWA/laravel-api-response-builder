@@ -1,344 +1,293 @@
-# **JsonResponse Class Documentation**
+# JsonResponse Documentation
 
-## 📚 Overview
+The `JsonResponse` class provides a set of methods to generate JSON responses with a standardized structure. Below is a detailed description of each method, including parameters, return types, and usage examples.
 
-The `JsonResponse` class provides methods to generate standardized JSON responses with a consistent structure. It includes methods for handling successful responses, error responses, and custom responses with additional features like metadata, pagination, and trace information. This documentation provides detailed explanations for each method, including parameters, functionality, and usage examples.
+## Methods
 
-## 📝 **Table of Contents**
+### `success()`
 
-1. [✔️ Success](#success)
-   - [How to use](#how-to-use-success)
-   - [Examples](#examples-success)
-2. [❌ Error](#error)
-   - [How to use](#how-to-use-error)
-   - [Examples](#examples-error)
-3. [✔️ SuccessWithMeta](#successwithmeta)
-   - [How to use](#how-to-use-successwithmeta)
-   - [Examples](#examples-successwithmeta)
-4. [❌ ErrorWithSuggestions](#errorwithsuggestions)
-   - [How to use](#how-to-use-errorwithsuggestions)
-   - [Examples](#examples-errorwithsuggestions)
-5. [✔️ SuccessWithPagination](#successwithpagination)
-   - [How to use](#how-to-use-successwithpagination)
-   - [Examples](#examples-successwithpagination)
-6. [✔️ SuccessWithTrace](#successwithtrace)
-   - [How to use](#how-to-use-successwithtrace)
-   - [Examples](#examples-successwithtrace)
+Returns a JSON response with a successful status code (200) and a success message.
+
+**Parameters:**
+
+- `mixed $data`: The data to include in the response (array or object).
+- `string|null $message`: The success message (optional). Defaults to a default message if not provided.
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+- `int $statusCode`: The HTTP status code (default is 200).
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided data and message.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::success(['user' => $user], 'User fetched successfully.');
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 200,
+  "message": "User fetched successfully.",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe"
+    }
+  }
+}
+```
+
+### `successWithMeta()`
+
+Returns a JSON response with a successful status code (200), data, and meta information.
+
+**Parameters:**
+
+- `mixed $data`: The data to include in the response (array or object).
+- `array $meta`: Meta information to include in the response.
+- `string|null $message`: The success message (optional). Defaults to a default message if not provided.
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+- `int $statusCode`: The HTTP status code (default is 200).
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided data, message, and meta information.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::successWithMeta(['user' => $user], ['total' => 1], 'User fetched successfully.');
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 200,
+  "message": "User fetched successfully.",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe"
+    }
+  },
+  "meta": {
+    "total": 1
+  }
+}
+```
+
+### `successWithHeaders()`
+
+Returns a JSON response with a successful status code (200), data, and custom headers.
+
+**Parameters:**
+
+- `mixed $data`: The data to include in the response (array or object).
+- `array $headers`: Custom headers to include in the response.
+- `string|null $message`: The success message (optional). Defaults to a default message if not provided.
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+- `int $statusCode`: The HTTP status code (default is 200).
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided data, message, and headers.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::successWithHeaders(['user' => $user], ['X-Custom-Header' => 'Value']);
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe"
+    }
+  }
+}
+```
+
+### `successWithPagination()`
+
+Returns a JSON response with a successful status code (200), data, and pagination information.
+
+**Parameters:**
+
+- `mixed $data`: The data to include in the response (array or object).
+- `array $pagination`: Pagination information including current page, total pages, etc.
+- `string|null $message`: The success message (optional). Defaults to a default message if not provided.
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+- `int $statusCode`: The HTTP status code (default is 200).
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided data, message, and pagination information.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::successWithPagination(['users' => $users], ['current_page' => 1, 'total_pages' => 10], 'Users fetched successfully.');
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 200,
+  "message": "Users fetched successfully.",
+  "data": {
+    "users": [
+      { "id": 1, "name": "John Doe" },
+      { "id": 2, "name": "Jane Smith" }
+    ]
+  },
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 10
+  }
+}
+```
+
+### `error()`
+
+Returns a JSON response with an error status code and an error message.
+
+**Parameters:**
+
+- `int $statusCode`: The HTTP status code (e.g., 400, 404, 500).
+- `string|null $message`: The error message (optional). Defaults to a default message if not provided.
+- `mixed $data`: The data to include in the response (optional, array or object).
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided status code, message, and data.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::error(404, 'Resource not found.');
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 404,
+  "message": "Resource not found.",
+  "data": {}
+}
+```
+
+### `errorWithTrace()`
+
+Returns a JSON response with an error status code, an error message, and technical details for debugging.
+
+**Parameters:**
+
+- `int $statusCode`: The HTTP status code (e.g., 400, 404, 500).
+- `string|null $message`: The error message (optional). Defaults to a default message if not provided.
+- `mixed $data`: The data to include in the response (optional, array or object).
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+- `string|null $trace`: The technical details or stack trace (optional).
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided status code, message, data, and trace.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::errorWithTrace(500, 'Internal server error', null, null, null, 'Stack trace details...');
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 500,
+  "message": "Internal server error",
+  "data": {},
+  "trace": "Stack trace details..."
+}
+```
+
+### `errorWithSuggestions()`
+
+Returns a JSON response with an error status code, an error message, and suggestions for resolving the issue.
+
+**Parameters:**
+
+- `int $statusCode`: The HTTP status code (e.g., 400, 404, 500).
+- `string|null $message`: The error message (optional). Defaults to a default message if not provided.
+- `array $suggestions`: An array of suggestions or tips to help the user resolve the issue.
+- `mixed $data`: The data to include in the response (optional, array or object).
+- `bool|null $wrap`: Determines whether to wrap the data (optional). Uses configuration setting if null.
+- `string|null $wrapKey`: The key for wrapping the data (optional). Uses configuration setting if null.
+
+**Returns:**
+
+- `IlluminateJsonResponse`: A JSON response with the provided status code, message, data, and suggestions.
+
+**Usage Example:**
+
+```php
+$response = JsonResponse::errorWithSuggestions(400, 'Bad request', ['Check the request parameters'], null);
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 400,
+  "message": "Bad request",
+  "data": {},
+  "suggestions": ["Check the request parameters"]
+}
+```
+
+### `buildResponse()`
+
+Builds and returns the JSON response with the standardized structure.
+
+**Returns:**
+
+- `IlluminateJsonResponse`: The final JSON response with the standardized structure.
+
+**Usage Example:**
+
+```php
+$response = (new JsonResponse(200, 'Success', $data))->buildResponse();
+```
+
+**Example Response:**
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "example_key": "example_value"
+  }
+}
+```
 
 ---
 
-## ✔️ **Success**
-
-### 📖 **Description**
-
-Generates a successful JSON response with a customizable message and data.
-
-### 🔧 **Parameters**
-
-- `mixed $data` – The data to include in the response.
-- `string|null $message` – Optional success message (default: 'success').
-- `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
-- `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-- `int $statusCode` – HTTP status code (default: 200).
-
-### 🛠️ **How to use** {#how-to-use-success}
-
-![how_to_use_success](/wiki/imgs/jsonResponse/how_to_use_success.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::success($data, 'Operation successful.');
-```
-
-</details>
-
-### **Examples** {#examples-success}
-
-**Example 1:**
-Generates a success response with user details.
-
-![Example 1](/wiki/imgs/jsonResponse/example_1_success.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::success($userData, 'User details retrieved successfully.');
-```
-
-</details>
-
-**Example 2:**
-Generates a success response with product details and a custom status code.
-
-![Example 2](/wiki/imgs/jsonResponse/example_2_success.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::success($productData, 'Product details retrieved successfully.', true, 'product');
-```
-
-</details>
-
----
-
-## ❌ **Error**
-
-### 📖 **Description**
-
-Generates an error JSON response with a customizable status code, message, and data.
-
-### 🔧 **Parameters**
-
-- `int $statusCode` – HTTP status code.
-- `string|null $message` – Optional error message (default: 'server_error').
-- `mixed $data` – Optional data to include in the response.
-- `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
-- `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-
-### 🛠️ **How to use** {#how-to-use-error}
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::error(400, 'Bad request.', $data);
-```
-
-</details>
-
-### **Examples** {#examples-error}
-
-**Example 1:**
-Generates an error response for a resource not found.
-
-![Example 1](/wiki/imgs/jsonResponse/example_1_error.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::error(404, 'Resource not found.');
-```
-
-</details>
-
----
-
-## ✔️ **SuccessWithMeta**
-
-### 📖 **Description**
-
-Generates a successful JSON response with additional metadata.
-
-### 🔧 **Parameters**
-
-- `mixed $data` – The data to include in the response.
-- `array $meta` – Metadata to include in the response.
-- `string|null $message` – Optional success message (default: 'success').
-- `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
-- `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-- `int $statusCode` – HTTP status code (default: 200).
-
-### 🛠️ **How to use** {#how-to-use-successwithmeta}
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::successWithMeta($data, $meta, 'Operation successful.');
-```
-
-</details>
-
-### **Examples** {#examples-successwithmeta}
-
-**Example 1:**
-Generates a success response with user details and metadata about the request.
-
-![Example 1](/wiki/imgs/jsonResponse/example_1_success_with_meta.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::successWithMeta($userData, ['request_time' => now()], 'User details retrieved successfully.');
-```
-
-</details>
-
----
-
-## ❌ **ErrorWithSuggestions**
-
-### 📖 **Description**
-
-Generates an error JSON response with suggested actions to resolve the issue.
-
-### 🔧 **Parameters**
-
-- `int $statusCode` – HTTP status code.
-- `string|null $message` – Optional error message (default: 'server_error').
-- `mixed $data` – Optional data to include in the response.
-- `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
-- `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-- `array $suggestions` – Suggestions for resolving the error.
-
-### 🛠️ **How to use** {#how-to-use-errorwithsuggestions}
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::errorWithSuggestions(400, 'Bad request.', $data, ['Check request parameters']);
-```
-
-</details>
-
-### **Examples** {#examples-errorwithsuggestions}
-
-**Example 1:**
-Generates an error response with suggestions to check request parameters.
-
-![Example 1](/wiki/imgs/jsonResponse/example_1_error_with_suggestions.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::errorWithSuggestions(400, 'Bad request.', null, ['Ensure all required parameters are included.']);
-```
-
-</details>
-
----
-
-## ✔️ **SuccessWithPagination**
-
-### 📖 **Description**
-
-Generates a successful JSON response with pagination information.
-
-### 🔧 **Parameters**
-
-- `mixed $data` – The data to include in the response.
-- `array $pagination` – Pagination information.
-- `string|null $message` – Optional success message (default: 'success').
-- `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
-- `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-- `int $statusCode` – HTTP status code (default: 200).
-
-### 🛠️ **How to use** {#how-to-use-successwithpagination}
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::successWithPagination($data, ['page' => 1, 'total_pages' => 10], 'Data retrieved successfully.');
-```
-
-</details>
-
-### **Examples** {#examples-successwithpagination}
-
-**Example 1:**
-Generates a success response with user list and pagination information.
-
-![Example 1](/wiki/imgs/jsonResponse/example_1_success_with_pagination.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::successWithPagination($userData, ['page' => 1, 'total_pages' => 5], 'Users retrieved successfully.');
-```
-
-</details>
-
----
-
-## ✔️ **SuccessWithTrace**
-
-### 📖 **Description**
-
-Generates a successful JSON response with trace information for debugging purposes.
-
-### 🔧 **Parameters**
-
-- `mixed $data` – The data to include in the response.
-- `array $trace` – Trace information for debugging.
-- `string|null $message` – Optional success message (default: 'success').
-- `bool|null $wrap` – Whether to wrap the data (default: configuration setting).
-- `string|null $wrapKey` – Key to wrap the data (default: configuration setting).
-- `int $statusCode` – HTTP status
-
-code (default: 200).
-
-### 🛠️ **How to use** {#how-to-use-successwithtrace}
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::successWithTrace($data, ['trace' => debug_backtrace()], 'Operation successful.');
-```
-
-</details>
-
-### **Examples** {#examples-successwithtrace}
-
-**Example 1:**
-Generates a success response with trace information for debugging.
-
-![Example 1](/wiki/imgs/jsonResponse/example_1_success_with_trace.png)
-
-<details>
-<summary>Click to view code</summary>
-
-```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
-
-return JsonResponse::successWithTrace($userData, ['trace' => debug_backtrace()], 'User details retrieved successfully.');
-```
-
-</details>
-
----
-
-## **Links**
-
-- [JsonResponse Class Documentation](#overview)
-- [Success](#success)
-- [Error](#error)
-- [SuccessWithMeta](#successwithmeta)
-- [ErrorWithSuggestions](#errorwithsuggestions)
-- [SuccessWithPagination](#successwithpagination)
-- [SuccessWithTrace](#successwithtrace)
+Feel free to integrate this documentation into your package's README or any other relevant documentation resources. If you need further customization or additional details, let me know!
