@@ -1,6 +1,6 @@
 {
   "name": "danilowa/laravel-api-response-builder",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A Laravel package designed to simplify the creation of structured and formatted API responses (JSON, XML) with custom status codes, messages, and data. XML support is currently under construction.",
   "type": "library",
   "license": "MIT",
