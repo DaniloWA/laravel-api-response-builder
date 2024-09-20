@@ -49,7 +49,7 @@ Generates a successful JSON response with a customizable message and data.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::success($data, 'Operation successful.');
 ```
@@ -67,7 +67,7 @@ Generates a success response with user details.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::success($userData, 'User details retrieved successfully.');
 ```
@@ -83,7 +83,7 @@ Generates a success response with product details and a custom status code.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::success($productData, 'Product details retrieved successfully.', true, 'product');
 ```
@@ -112,7 +112,7 @@ Generates an error JSON response with a customizable status code, message, and d
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::error(400, 'Bad request.', $data);
 ```
@@ -130,7 +130,7 @@ Generates an error response for a resource not found.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::error(404, 'Resource not found.');
 ```
@@ -160,7 +160,7 @@ Generates a successful JSON response with additional metadata.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::successWithMeta($data, $meta, 'Operation successful.');
 ```
@@ -178,7 +178,7 @@ Generates a success response with user details and metadata about the request.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::successWithMeta($userData, ['request_time' => now()], 'User details retrieved successfully.');
 ```
@@ -208,7 +208,7 @@ Generates an error JSON response with suggested actions to resolve the issue.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::errorWithSuggestions(400, 'Bad request.', $data, ['Check request parameters']);
 ```
@@ -226,7 +226,7 @@ Generates an error response with suggestions to check request parameters.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::errorWithSuggestions(400, 'Bad request.', null, ['Ensure all required parameters are included.']);
 ```
@@ -256,7 +256,7 @@ Generates a successful JSON response with pagination information.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::successWithPagination($data, ['page' => 1, 'total_pages' => 10], 'Data retrieved successfully.');
 ```
@@ -274,7 +274,7 @@ Generates a success response with user list and pagination information.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::successWithPagination($userData, ['page' => 1, 'total_pages' => 5], 'Users retrieved successfully.');
 ```
@@ -306,7 +306,7 @@ code (default: 200).
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::successWithTrace($data, ['trace' => debug_backtrace()], 'Operation successful.');
 ```
@@ -324,7 +324,7 @@ Generates a success response with trace information for debugging.
 <summary>Click to view code</summary>
 
 ```php
-use Doliveira\LaravelResponseBuilder\JsonResponse;
+use Danilowa\LaravelResponseBuilder\JsonResponse;
 
 return JsonResponse::successWithTrace($userData, ['trace' => debug_backtrace()], 'User details retrieved successfully.');
 ```

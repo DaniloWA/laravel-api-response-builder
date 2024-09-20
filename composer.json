@@ -1,5 +1,5 @@
 {
-  "name": "doliveira/laravel-api-response-builder",
+  "name": "danilowa/laravel-api-response-builder",
   "version": "1.0.8",
   "description": "A Laravel package designed to simplify the creation of structured and formatted API responses (JSON, XML) with custom status codes, messages, and data. XML support is currently under construction.",
   "type": "library",
@@ -7,7 +7,7 @@
   "minimum-stability": "dev",
   "homepage": "https://github.com/DaniloWA/laravel-api-response-builder",
   "keywords": [
-    "doliveira",
+    "DaniloWA",
     "danilo",
     "oliveira",
     "laravel-api-response-builder",
@@ -30,26 +30,26 @@
     }
   ],
   "require": {
-    "php": "^7.3|^8.0|^8.1|^8.2",
+    "php": "^8.1|^8.2",
     "laravel/framework": "^8.0|^9.0|^10.0|^11.0"
   },
   "autoload": {
     "psr-4": {
-      "Doliveira\\LaravelResponseBuilder\\": "src/",
-      "Doliveira\\LaravelResponseBuilder\\Providers\\": "src/providers/",
-      "Doliveira\\LaravelResponseBuilder\\Resources\\": "src/resources",
-      "Doliveira\\LaravelResponseBuilder\\Config\\": "src/config"
+      "Danilowa\\LaravelResponseBuilder\\": "src/",
+      "Danilowa\\LaravelResponseBuilder\\Providers\\": "src/providers/",
+      "Danilowa\\LaravelResponseBuilder\\Resources\\": "src/resources",
+      "Danilowa\\LaravelResponseBuilder\\Config\\": "src/config"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Doliveira\\LaravelResponseBuilder\\Tests\\": "tests"
+      "Danilowa\\LaravelResponseBuilder\\Tests\\": "tests"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Doliveira\\LaravelResponseBuilder\\Providers\\ResponseBuilderServiceProvider"
+        "Danilowa\\LaravelResponseBuilder\\Providers\\ResponseBuilderServiceProvider"
       ]
     }
   },

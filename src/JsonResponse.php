@@ -1,6 +1,6 @@
 <?php
 
-namespace Doliveira\LaravelResponseBuilder;
+namespace Danilowa\LaravelResponseBuilder;
 
 use Illuminate\Http\JsonResponse as IlluminateJsonResponse;
 

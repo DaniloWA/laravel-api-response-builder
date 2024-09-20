@@ -1,6 +1,6 @@
 <?php
 
-namespace Doliveira\LaravelResponseBuilder\Providers;
+namespace Danilowa\LaravelResponseBuilder\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;

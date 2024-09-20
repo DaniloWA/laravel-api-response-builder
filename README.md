@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="https://img.shields.io/packagist/v/doliveira/laravel-api-response-builder" alt="Latest Version" />
-  <img src="https://img.shields.io/packagist/dt/doliveira/laravel-api-response-builder" alt="Total Downloads" />
+  <img src="https://img.shields.io/packagist/v/danilowa/laravel-api-response-builder" alt="Latest Version" />
+  <img src="https://img.shields.io/packagist/dt/danilowa/laravel-api-response-builder" alt="Total Downloads" />
 </p>
 
 <p align="center">
@@ -50,7 +50,7 @@ To integrate the Laravel API Response Builder into your Laravel project, follow 
 Run the following command in your terminal:
 
 ```bash
-composer require doliveira/laravel-api-response-builder
+composer require danilowa/laravel-api-response-builder
 ```
 
 2. **Publish the Configuration (Optional):**
@@ -58,7 +58,7 @@ composer require doliveira/laravel-api-response-builder
 After installation, publish the configuration file:
 
 ```bash
-php artisan vendor:publish --provider="Doliveira\LaravelResponseBuilder\Providers\ResponseBuilderServiceProvider"
+php artisan vendor:publish --provider="Danilowa\LaravelResponseBuilder\Providers\ResponseBuilderServiceProvider"
 ```
 
 This will create a configuration file at `config/responsebuilder.php`, where you can customize the package settings.
@@ -85,7 +85,7 @@ This will create a `resources/lang/vendor/responsebuilder` directory where you c
 
 2. **Use Existing Translation Files:**
 
-If you do not need custom translations, the package will automatically use the default language files from the `vendor/doliveira/laravel-api-response-builder/resources/lang` directory.
+If you do not need custom translations, the package will automatically use the default language files from the `vendor/danilowa/laravel-api-response-builder/resources/lang` directory.
 
 ## 🧰 Technologies
 
